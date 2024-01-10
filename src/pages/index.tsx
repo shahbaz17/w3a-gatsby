@@ -75,7 +75,10 @@ const IndexPage: React.FC<PageProps> = () => {
       console.log("web3auth not initialized yet");
       return;
     }
-    await web3auth.connect();
+    const provider = await web3auth.connect();
+    if (provider) {
+      setLoggedIn(true);
+    }
   };
 
   const signOut = async () => {
