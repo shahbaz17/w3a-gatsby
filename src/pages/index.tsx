@@ -47,13 +47,7 @@ const IndexPage: React.FC<PageProps> = () => {
             "BPi5PB_UiIZ-cPz1GtV5i1I2iOSOHuimiXBI0e-Oe_u6X3oVAbCiAZOTEBtTXw4tsluTITPqA8zMsfxIKMjiqNQ", // Get your Client ID from the Web3Auth Dashboard
           web3AuthNetwork: "sapphire_mainnet", // Web3Auth Network
           chainConfig: {
-            chainNamespace: "other",
-            chainId: "0x1",
-            rpcTarget: "https://s.altnet.rippletest.net:51234",
-            displayName: "XRPL",
-            blockExplorer: "https://testnet.xrpl.org",
-            ticker: "XRP",
-            tickerName: "XRP",
+            chainNamespace: "eip155",
           },
         });
 

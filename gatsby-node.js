@@ -1,24 +1,30 @@
-exports.onCreateWebpackConfig = ({ actions, plugins }) => {
-    const webpack = require('webpack');
+exports.onCreateWebpackConfig = ({ actions, plugins, getConfig }) => {
+    const webpack = require("webpack");
+    const path = require("path");
+    const config = getConfig();
+    if (config.externals && config.externals[0]) {
+        config.externals[0]["node:crypto"] = require.resolve("crypto-browserify");
+    }
     actions.setWebpackConfig({
+        ...config,
         resolve: {
             fallback: {
-                crypto: require.resolve("crypto-browserify"),
-                stream: require.resolve("stream-browserify"),
-                assert: require.resolve("assert"),
-                http: require.resolve("stream-http"),
-                https: require.resolve("https-browserify"),
-                os: require.resolve("os-browserify"),
-                url: require.resolve("url"),
-                zlib: require.resolve("browserify-zlib"),
-                "object.assign/polyfill": require.resolve("object-assign"),
+                crypto: false,
+                stream: false,
+                assert: require.resolve("assert/"),
+                http: false,
+                https: false,
+                os: false,
+                url: false,
+                zlib: false,
+                "object.assign/polyfill": path.resolve("./node_modules/object.assign/polyfill.js"),
             },
         },
         plugins: [
-            plugins.provide({ process: 'process/browser' }),
+            plugins.provide({ process: "process/browser" }),
             new webpack.ProvidePlugin({
-                Buffer: ['buffer', 'Buffer'],
-            })
+                Buffer: ["buffer", "Buffer"],
+            }),
         ],
-    })
-}
+    });
+};
